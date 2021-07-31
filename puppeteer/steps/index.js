@@ -1,7 +1,7 @@
 const { getPage } = require('../pages');
-const run = async (func) => {
+const run = async (func, ...params) => {
   const page = await getPage();
-  const res = await func(page);
+  const res = await func(page, ...params);
   await page.close();
   return res;
 };
