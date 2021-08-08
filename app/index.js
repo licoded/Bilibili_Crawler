@@ -19,7 +19,9 @@ global.db = {
 };
 (async () => {
   await run(login);
+  console.log('【请稍后】正在获取uid，请先不要发送请求');
   await run(getUid);
+  console.log('【成功获取uid】接口可以正常使用了');
 })();
 
 app.use(catchError);
