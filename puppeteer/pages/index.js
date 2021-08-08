@@ -29,7 +29,7 @@ const createBrowser = async()=>{
 
 const getPage = ()=>{
   return new Promise( resolve=>{
-    global.browser.then(async browser=>{
+    global.db.browser.then(async browser=>{
       await browser.newPage().then(page=>{
         resolve(page);
       });

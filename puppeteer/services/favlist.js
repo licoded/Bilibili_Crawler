@@ -1,8 +1,8 @@
 const { sleep } = require('../tools');
-const uid = 218839228;
-const URL = `https://space.bilibili.com/${uid}/favlist`;
 
 const getFavBoxes = async (page) => {
+  const { uid } = global.db;
+  const URL = `https://space.bilibili.com/${uid}/favlist`;
   await page.goto(URL, { waitUntil: 'load' });
   await sleep(500);
   let favBoxes;
@@ -18,6 +18,8 @@ const getFavBoxes = async (page) => {
 };
 
 const getFavInfoByFid = async (page, fid) => {
+  const { uid } = global.db;
+  const URL = `https://space.bilibili.com/${uid}/favlist`;
   const NOW_URL = `${URL}?fid=${fid}`;
   await page.goto(NOW_URL, { waitUntil: 'load' });
   await sleep(1000);
@@ -43,7 +45,6 @@ const getFavListByFid = async (page, fid) => {
   const favInfo = await getFavInfoByFid(page, fid);
   const favList = [];
   for (let i = 1; i <= favInfo.totalPage; i++) {
-    console.log('【page】', i);
     await page.evaluate(() => {
       const result = [];
       const favs = document.querySelector('.fav-video-list').children;

@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser');
 const { catchError } = require('./middleware');
 
 const { createBrowser, login } = require('../puppeteer/pages');
+const { getUid } = require('../puppeteer/services');
 const { run } = require('../puppeteer/steps');
 
 const app = new Koa();
@@ -13,9 +14,12 @@ const logger = KoaLogger((str) => {
   console.log(Moment().format('YYYY-MM-DD HH:mm:ss') + str);
 });
 
-global.browser = createBrowser();
+global.db = {
+  browser: createBrowser(),
+};
 (async () => {
   await run(login);
+  await run(getUid);
 })();
 
 app.use(catchError);
